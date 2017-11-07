@@ -118,7 +118,7 @@ vtkPVDataRepresentation* FindRepresentation(vtkProp* prop, vtkView* view)
   return NULL;
 }
 }
-
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::GetScalars()
 {
   this->ScalarMap.clear();
@@ -182,6 +182,7 @@ void vtkPVOpenVRHelper::GetFilters()
   this->FiltersMap.insert(std::pair<std::string, int>("GenericTessellator", 9));
 }
 
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::BuildScalarMenu()
 {
   this->ScalarMenu->PushFrontMenuItem("exit", "Exit", this->EventCommand);
@@ -207,6 +208,8 @@ void vtkPVOpenVRHelper::BuildScalarMenu()
   }
 }
 
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::ToggleNavigationPanel()
 {
   if (!this->NavWidget->GetEnabled())
@@ -234,6 +237,7 @@ void vtkPVOpenVRHelper::ToggleNavigationPanel()
   }
 }
 
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::AddACropPlane()
 {
   vtkNew<vtkImplicitPlaneRepresentation> rep;
@@ -276,6 +280,7 @@ void vtkPVOpenVRHelper::AddACropPlane()
   }
 }
 
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::RemoveAllCropPlanes()
 {
   for (vtkImplicitPlaneWidget2* iter : this->CropPlanes)
@@ -307,6 +312,7 @@ void vtkPVOpenVRHelper::RemoveAllCropPlanes()
   this->CropPlanes.clear();
 }
 
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::SelectScalar(std::string name)
 {
   std::istringstream is(name);
@@ -612,6 +618,7 @@ void vtkPVOpenVRHelper::EventCallback(
   }
 }
 
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::ViewRemoved(vtkSMViewProxy* smview)
 {
   // if this is not our view then we don't care
@@ -623,6 +630,7 @@ void vtkPVOpenVRHelper::ViewRemoved(vtkSMViewProxy* smview)
   this->Quit();
 }
 
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::SendToOpenVR(vtkSMViewProxy* smview)
 {
   this->SMView = smview;
@@ -800,6 +808,7 @@ void vtkPVOpenVRHelper::SendToOpenVR(vtkSMViewProxy* smview)
   this->RenderWindow = nullptr;
 }
 
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::UpdateProps()
 {
   if (!this->Renderer)
@@ -840,6 +849,7 @@ void vtkPVOpenVRHelper::UpdateProps()
   this->Interactor->DoOneEvent(this->RenderWindow, this->Renderer);
 }
 
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::Quit()
 {
   if (this->Interactor)
