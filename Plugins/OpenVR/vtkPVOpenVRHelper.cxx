@@ -209,6 +209,24 @@ void vtkPVOpenVRHelper::BuildScalarMenu()
 }
 
 //----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::BuildSourcesMenu()
+{
+    this->SourcesMenu->PushFrontMenuItem("exit", "Exit", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("RTAnalyticSource", "Wavelet", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("SphereSource", "Sphere", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("Ruler", "Ruler", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("PointSource", "Point", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("PlaneSource", "Plane", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("LineSource", "Line", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("DiskSource", "Disk", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("CylinderSource", "Cylinder", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("ConeSource", "Cone", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("CubeSource", "Box", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("Axes", "Axes", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("ArrowSource", "Arrow", this->EventCommand);
+    this->FiltersMenu->PushFrontMenuItem("VectorText", "3D Text", this->EventCommand);
+}
+
 //----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::ToggleNavigationPanel()
 {

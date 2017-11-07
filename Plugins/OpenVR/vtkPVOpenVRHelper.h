@@ -78,6 +78,7 @@ protected:
   void GetSources();
   void GetFilters();
   void BuildScalarMenu();
+  void BuildSourcesMenu();
   void SelectScalar(std::string name);
 
   vtkNew<vtkOpenVRPanelWidget> NavWidget;
