@@ -71,7 +71,87 @@
 #include <QCoreApplication>
 
 vtkStandardNewMacro(vtkPVOpenVRHelper);
+////-----------------------------------------------------------------------------
+//void vtkPVOpenVRHelper::BuildSourceAndFilterMenu()
+//{
+//  std::set<std::string> ProxyDefinitionGroupToListen;
+//  ProxyDefinitionGroupToListen.insert("sources");
+//  ProxyDefinitionGroupToListen.insert("filters");
 
+//  // Look inside the group name that are tracked
+//  vtkSMSessionProxyManager* pxm =
+//    vtkSMProxyManager::GetProxyManager()->GetActiveSessionProxyManager();
+
+//  if (ProxyDefinitionGroupToListen.size() == 0 || pxm == NULL)
+//  {
+//    return; // Nothing to look into...
+//  }
+//  vtkSMProxyDefinitionManager* pxdm = pxm->GetProxyDefinitionManager();
+
+//  // Setup definition iterator
+//  vtkSmartPointer<vtkPVProxyDefinitionIterator> iter;
+//  iter.TakeReference(pxdm->NewIterator());
+//  foreach (std::string groupName, ProxyDefinitionGroupToListen)
+//  {
+//    iter->AddTraversalGroupName(groupName.c_str());
+//  }
+
+//  // Loop over proxy that should be inserted inside the UI
+//  std::set<std::pair<std::string, std::string> > definitionSet;
+//  for (iter->InitTraversal(); !iter->IsDoneWithTraversal(); iter->GoToNextItem())
+//  {
+//    const char* group = iter->GetGroupName();
+//    const char* name = iter->GetProxyName();
+//    std::cout << "*******************************"<< std::endl;
+//    std::cout << "Group : " <<group << std::endl;
+//    std::cout << "Name : " << name << std::endl;
+//    vtkPVXMLElement* hints = iter->GetProxyHints();
+//    if (hints != NULL)
+//    {
+//      if (hints->FindNestedElementByName("ReaderFactory") != NULL)
+//      {
+//        // skip readers.
+//        continue;
+//      }
+//      for (unsigned int cc = 0; cc < hints->GetNumberOfNestedElements(); cc++)
+//      {
+//        vtkPVXMLElement* showInMenu = hints->GetNestedElement(cc);
+//        if (showInMenu == NULL || showInMenu->GetName() == NULL ||
+//          strcmp(showInMenu->GetName(), "ShowInMenu") != 0)
+//        {
+//          continue;
+//        }
+//        std::cout << "******PLUGIN*************************"<< std::endl;
+//        std::cout << "Group : " <<group << std::endl;
+//        std::cout << "Name : " << name << std::endl;
+//        definitionSet.insert(std::pair<std::string, std::string>(group, name));
+//#if 0
+//        this->Internal->addProxy(group, name, showInMenu->GetAttribute("icon"));
+//        if (const char* categoryName = showInMenu->GetAttribute("category"))
+//        {
+//          pqInternal::CategoryInfo& category = this->Internal->Categories[categoryName];
+//          // If no label just make it up
+//          if (category.Label.isEmpty())
+//          {
+//            category.Label = categoryName;
+//          }
+//          int show_in_toolbar = 0;
+//          if (showInMenu->GetScalarAttribute("show_in_toolbar", &show_in_toolbar))
+//          {
+//            category.ShowInToolbar = category.ShowInToolbar || (show_in_toolbar == 1);
+//          }
+//          if (!category.Proxies.contains(QPair<QString, QString>(group, name)))
+//          {
+//            category.Proxies.push_back(QPair<QString, QString>(group, name));
+//          }
+//        }
+//#endif
+//      }
+//    }
+//  }
+//  // Update the menu with the current definition
+//  // this->populateMenu();
+//}
 //----------------------------------------------------------------------------
 vtkPVOpenVRHelper::vtkPVOpenVRHelper()
 {
