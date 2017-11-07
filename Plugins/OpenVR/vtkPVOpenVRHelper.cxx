@@ -147,6 +147,26 @@ void vtkPVOpenVRHelper::GetScalars()
   }
 }
 
+//----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::GetSources()
+{
+  this->SourcesMap.clear();
+  this->SourcesMap.insert(std::pair<std::string, int>("VectorText", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("ArrowSource", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("Axes", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("CubeSource", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("ConeSource", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("CylinderSource", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("LineSource", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("Ruler", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("PlaneSource", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("PointSource", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("SphereSource", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("DiskSource", 1));
+  this->SourcesMap.insert(std::pair<std::string, int>("RTAnalyticSource", 1));
+
+}
+
 void vtkPVOpenVRHelper::BuildScalarMenu()
 {
   this->ScalarMenu->PushFrontMenuItem("exit", "Exit", this->EventCommand);

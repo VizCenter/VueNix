@@ -75,6 +75,7 @@ protected:
   std::string NextXML;
 
   void GetScalars();
+  void GetSources();
   void BuildScalarMenu();
   void SelectScalar(std::string name);
 
@@ -101,6 +102,7 @@ protected:
     void* clientdata, void* calldata);
   void HandleInteractorEvent(vtkOpenVRRenderWindowInteractor* iren, vtkObject* object,
     unsigned long event, void* clientdata, void* calldata);
+  std::map<std::string, int> SourcesMap;
 
   vtkDistanceWidget* DistanceWidget;
   vtkPVRenderView* View;
