@@ -665,6 +665,14 @@ void vtkPVOpenVRHelper::HandleMenuEvent(vtkOpenVRMenuWidget* menu,
     {
       menu->ShowSubMenu(this->ScalarMenu.Get());
     }
+    if (name == "selectsources")
+    {
+      menu->ShowSubMenu(this->SourcesMenu.Get());
+    }
+    if (name == "selectfilters")
+    {
+      menu->ShowSubMenu(this->FiltersMenu.Get());
+    }
     if (name == "addacropplane")
     {
       this->AddACropPlane();
