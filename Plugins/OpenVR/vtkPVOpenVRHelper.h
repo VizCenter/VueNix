@@ -99,19 +99,28 @@ protected:
   std::map<std::string, int> ScalarMap;
   vtkNew<vtkOpenVRMenuWidget> ScalarMenu;
   vtkNew<vtkOpenVRMenuRepresentation> ScalarMenuRepresentation;
-  vtkCallbackCommand* EventCommand;
-  static void EventCallback(
-    vtkObject* object, unsigned long event, void* clientdata, void* calldata);
 
-  void HandleMenuEvent(vtkOpenVRMenuWidget* menu, vtkObject* object, unsigned long event,
-    void* clientdata, void* calldata);
-  void HandleInteractorEvent(vtkOpenVRRenderWindowInteractor* iren, vtkObject* object,
-    unsigned long event, void* clientdata, void* calldata);
   std::map<std::string, int> SourcesMap;
   vtkNew<vtkOpenVRMenuWidget> SourcesMenu;
 
   std::map<std::string, int> FiltersMap;
   vtkNew<vtkOpenVRMenuWidget> FiltersMenu;
+  vtkCallbackCommand* EventCommand;
+  static void EventCallback(vtkObject* object,
+                            unsigned long event,
+                            void* clientdata,
+                            void* calldata);
+
+  void HandleMenuEvent(vtkOpenVRMenuWidget* menu,
+                       vtkObject* object,
+                       unsigned long event,
+                       void* clientdata,
+                       void* calldata);
+  void HandleInteractorEvent(vtkOpenVRRenderWindowInteractor* iren,
+                             vtkObject* object,
+                             unsigned long event,
+                             void* clientdata,
+                             void* calldata);
   vtkDistanceWidget* DistanceWidget;
   vtkPVRenderView* View;
   vtkSMViewProxy* SMView;

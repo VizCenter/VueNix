@@ -481,8 +481,13 @@ void vtkPVOpenVRHelper::SelectScalar(std::string name)
   this->SMView->StillRender();
 }
 
-void vtkPVOpenVRHelper::HandleMenuEvent(
-  vtkOpenVRMenuWidget* menu, vtkObject*, unsigned long eventID, void*, void* calldata)
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::HandleMenuEvent(vtkOpenVRMenuWidget* menu,
+                                        vtkObject*,
+                                        unsigned long eventID,
+                                        void*,
+                                        void* calldata)
 {
   // handle menu events
   if (menu == this->Style->GetMenu() && eventID == vtkWidgetEvent::Select3D)
@@ -532,8 +537,11 @@ void vtkPVOpenVRHelper::HandleMenuEvent(
   }
 }
 
-void vtkPVOpenVRHelper::HandleInteractorEvent(
-  vtkOpenVRRenderWindowInteractor*, vtkObject*, unsigned long eventID, void*, void* calldata)
+//----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::HandleInteractorEvent(vtkOpenVRRenderWindowInteractor*,
+                                              vtkObject*,
+                                              unsigned long eventID,
+                                              void*, void* calldata)
 {
   vtkEventData* edata = static_cast<vtkEventData*>(calldata);
   vtkEventDataDevice3D* edd = edata->GetAsEventDataDevice3D();
@@ -593,8 +601,11 @@ void vtkPVOpenVRHelper::HandleInteractorEvent(
   }
 }
 
-void vtkPVOpenVRHelper::EventCallback(
-  vtkObject* caller, unsigned long eventID, void* clientdata, void* calldata)
+//----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::EventCallback(vtkObject* caller,
+                                      unsigned long eventID,
+                                      void* clientdata,
+                                      void* calldata)
 {
   vtkPVOpenVRHelper* self = static_cast<vtkPVOpenVRHelper*>(clientdata);
 
