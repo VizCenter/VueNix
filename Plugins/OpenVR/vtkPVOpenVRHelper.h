@@ -83,6 +83,7 @@ protected:
   void BuildFiltersMenu();
 
   void SelectScalar(std::string name);
+  void SelectSources(std::string name);
 
   vtkNew<vtkOpenVRPanelWidget> NavWidget;
   vtkNew<vtkOpenVRPanelRepresentation> NavRepresentation;
