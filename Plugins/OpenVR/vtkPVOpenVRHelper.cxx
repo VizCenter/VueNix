@@ -324,6 +324,7 @@ void vtkPVOpenVRHelper::BuildFiltersMenu()
   this->FiltersMenu->PushFrontMenuItem("GenericContour", "Contour", this->EventCommand);
 }
 
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::ToggleNavigationPanel()
 {
   if (!this->NavWidget->GetEnabled())
