@@ -79,6 +79,7 @@ protected:
   void GetFilters();
   void BuildScalarMenu();
   void BuildSourcesMenu();
+
   void SelectScalar(std::string name);
 
   vtkNew<vtkOpenVRPanelWidget> NavWidget;
@@ -105,6 +106,7 @@ protected:
   void HandleInteractorEvent(vtkOpenVRRenderWindowInteractor* iren, vtkObject* object,
     unsigned long event, void* clientdata, void* calldata);
   std::map<std::string, int> SourcesMap;
+  vtkNew<vtkOpenVRMenuWidget> SourcesMenu;
 
   std::map<std::string, int> FiltersMap;
   vtkDistanceWidget* DistanceWidget;
