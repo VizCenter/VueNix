@@ -65,6 +65,9 @@
 
 #include <sstream>
 
+#include <string>
+#include <set>
+#include <stdlib.h>
 #include <QCoreApplication>
 
 vtkStandardNewMacro(vtkPVOpenVRHelper);
