@@ -166,8 +166,10 @@ vtkPVOpenVRHelper::vtkPVOpenVRHelper()
   this->EventCommand = vtkCallbackCommand::New();
   this->EventCommand->SetClientData(this);
   this->EventCommand->SetCallback(vtkPVOpenVRHelper::EventCallback);
-
   this->ScalarMenu->SetRepresentation(this->ScalarMenuRepresentation.Get());
+  this->SourcesMenu->SetRepresentation(this->SourcesMenuRepresentation.Get());
+  this->FiltersMenu->SetRepresentation(this->FiltersMenuRepresentation.Get());
+
   this->Renderer = nullptr;
   this->RenderWindow = nullptr;
   this->Style = nullptr;

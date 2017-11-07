@@ -104,9 +104,12 @@ protected:
 
   std::map<std::string, int> SourcesMap;
   vtkNew<vtkOpenVRMenuWidget> SourcesMenu;
+  vtkNew<vtkOpenVRMenuRepresentation> SourcesMenuRepresentation;
 
   std::map<std::string, int> FiltersMap;
   vtkNew<vtkOpenVRMenuWidget> FiltersMenu;
+  vtkNew<vtkOpenVRMenuRepresentation> FiltersMenuRepresentation;
+
   vtkCallbackCommand* EventCommand;
   static void EventCallback(vtkObject* object,
                             unsigned long event,
