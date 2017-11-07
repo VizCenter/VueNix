@@ -970,6 +970,13 @@ void vtkPVOpenVRHelper::SendToOpenVR(vtkSMViewProxy* smview)
   this->GetScalars();
   this->BuildScalarMenu();
 
+  // build sources menu and filter menu
+  this->GetSources();
+  this->BuildSourcesMenu();
+
+  this->GetFilters();
+  this->BuildFiltersMenu();
+
   this->Renderer->RemoveCuller(this->Renderer->GetCullers()->GetLastItem());
   this->Renderer->SetBackground(pvRenderer->GetBackground());
 
