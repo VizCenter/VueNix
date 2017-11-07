@@ -962,7 +962,10 @@ void vtkPVOpenVRHelper::SendToOpenVR(vtkSMViewProxy* smview)
     "addacropplane", "Add a Crop Plane", this->EventCommand);
   this->Style->GetMenu()->PushFrontMenuItem(
     "selectscalar", "Select Scalar to View", this->EventCommand);
-
+  this->Style->GetMenu()->PushFrontMenuItem(
+    "selectfilters", "Filters Menu", this->EventCommand);
+  this->Style->GetMenu()->PushFrontMenuItem(
+    "selectsources", "Sources Menu", this->EventCommand);
   // get the scalars
   this->GetScalars();
   this->BuildScalarMenu();
