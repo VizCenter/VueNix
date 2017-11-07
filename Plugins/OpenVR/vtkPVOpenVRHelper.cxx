@@ -228,6 +228,19 @@ void vtkPVOpenVRHelper::BuildSourcesMenu()
 }
 
 //----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::BuildFiltersMenu()
+{
+  this->FiltersMenu->PushFrontMenuItem("exit", "Exit", this->EventCommand);
+  this->FiltersMenu->PushFrontMenuItem("ProbePoint", "Probe Location", this->EventCommand);
+  this->FiltersMenu->PushFrontMenuItem("GenericStreamTracer", "Stream Tracer", this->EventCommand);
+  this->FiltersMenu->PushFrontMenuItem("Glyph", "Glyph", this->EventCommand);
+  this->FiltersMenu->PushFrontMenuItem("ExtractGrid", "Extract Subset", this->EventCommand);
+  this->FiltersMenu->PushFrontMenuItem("Threshold", "Threshold", this->EventCommand);
+  this->FiltersMenu->PushFrontMenuItem("GenericCut", "Cut", this->EventCommand);
+  this->FiltersMenu->PushFrontMenuItem("GenericClip", "Clip", this->EventCommand);
+  this->FiltersMenu->PushFrontMenuItem("GenericContour", "Contour", this->EventCommand);
+}
+
 void vtkPVOpenVRHelper::ToggleNavigationPanel()
 {
   if (!this->NavWidget->GetEnabled())

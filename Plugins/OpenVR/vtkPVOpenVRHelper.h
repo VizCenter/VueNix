@@ -77,8 +77,10 @@ protected:
   void GetScalars();
   void GetSources();
   void GetFilters();
+
   void BuildScalarMenu();
   void BuildSourcesMenu();
+  void BuildFiltersMenu();
 
   void SelectScalar(std::string name);
 
@@ -109,6 +111,7 @@ protected:
   vtkNew<vtkOpenVRMenuWidget> SourcesMenu;
 
   std::map<std::string, int> FiltersMap;
+  vtkNew<vtkOpenVRMenuWidget> FiltersMenu;
   vtkDistanceWidget* DistanceWidget;
   vtkPVRenderView* View;
   vtkSMViewProxy* SMView;
