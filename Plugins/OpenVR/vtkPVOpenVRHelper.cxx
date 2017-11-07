@@ -700,6 +700,40 @@ void vtkPVOpenVRHelper::HandleMenuEvent(vtkOpenVRMenuWidget* menu,
   {
     this->Style->GetMenu()->On();
   }
+
+  // Sources Menu
+  if (menu == this->SourcesMenu.Get() && eventID == vtkWidgetEvent::Select3D)
+  {
+    std::string name = static_cast<const char*>(calldata);
+
+    if (name != "exit")
+    {
+      this->SelectSources(name);
+    }
+    return;
+  }
+
+  if (menu == this->SourcesMenu.Get() && eventID == vtkWidgetEvent::Select)
+  {
+    this->Style->GetMenu()->On();
+  }
+
+  // Filters Menu
+  if (menu == this->FiltersMenu.Get() && eventID == vtkWidgetEvent::Select3D)
+  {
+    std::string name = static_cast<const char*>(calldata);
+
+    if (name != "exit")
+    {
+      this->SelectFilters(name);
+    }
+    return;
+  }
+
+  if (menu == this->FiltersMenu.Get() && eventID == vtkWidgetEvent::Select)
+  {
+    this->Style->GetMenu()->On();
+  }
 }
 
 //----------------------------------------------------------------------------
