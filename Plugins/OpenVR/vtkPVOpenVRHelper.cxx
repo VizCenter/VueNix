@@ -583,6 +583,61 @@ void vtkPVOpenVRHelper::SelectSources(std::string name)
 }
 
 //----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::SelectFilters(std::string name)
+{
+  std::istringstream is(name);
+  int target;
+  is >> target;
+
+  int count = 0;
+  std::string tname;
+  int tassoc = -1;
+  for (auto i : this->ScalarMap)
+  {
+    if (count == target)
+    {
+      tname = i.first;
+      tassoc = i.second;
+      break;
+    }
+    count++;
+  }
+
+  vtkSMPropertyHelper helper(this->SMView, "Representations");
+  for (unsigned int i = 0; i < helper.GetNumberOfElements(); i++)
+  {
+    vtkSMPVRepresentationProxy* repr =
+      vtkSMPVRepresentationProxy::SafeDownCast(helper.GetAsProxy(i));
+    vtkSMProperty* prop = repr ? repr->GetProperty("ColorArrayName") : nullptr;
+    if (prop)
+    {
+      vtkSMRepresentedArrayListDomain* scalars = vtkSMRepresentedArrayListDomain::SafeDownCast(
+        prop->FindDomain("vtkSMRepresentedArrayListDomain"));
+      int numsc = scalars->GetNumberOfStrings();
+      bool found = false;
+      for (int i = 0; i < numsc && !found; ++i)
+      {
+        std::string sname = scalars->GetString(i);
+        int assoc = scalars->GetFieldAssociation(i);
+        if (assoc == tassoc && sname == tname)
+        {
+          // vtkSMPVRepresentationProxy - has method SetColorArrayName
+          repr->SetScalarColoring(tname.c_str(), tassoc);
+          found = true;
+        }
+      }
+      if (!found)
+      {
+        // solid color
+        repr->SetScalarColoring(nullptr, tassoc);
+      }
+    }
+  }
+  this->SMView->StillRender();
+}
+
+
+//----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::HandleMenuEvent(vtkOpenVRMenuWidget* menu,
                                         vtkObject*,
                                         unsigned long eventID,
