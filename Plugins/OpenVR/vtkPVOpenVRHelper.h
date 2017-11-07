@@ -76,6 +76,7 @@ protected:
 
   void GetScalars();
   void GetSources();
+  void GetFilters();
   void BuildScalarMenu();
   void SelectScalar(std::string name);
 
@@ -104,6 +105,7 @@ protected:
     unsigned long event, void* clientdata, void* calldata);
   std::map<std::string, int> SourcesMap;
 
+  std::map<std::string, int> FiltersMap;
   vtkDistanceWidget* DistanceWidget;
   vtkPVRenderView* View;
   vtkSMViewProxy* SMView;

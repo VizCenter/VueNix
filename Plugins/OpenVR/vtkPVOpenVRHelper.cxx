@@ -167,6 +167,21 @@ void vtkPVOpenVRHelper::GetSources()
 
 }
 
+//----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::GetFilters()
+{
+  this->FiltersMap.clear();
+  this->FiltersMap.insert(std::pair<std::string, int>("GenericContour", 1));
+  this->FiltersMap.insert(std::pair<std::string, int>("GenericClip", 2));
+  this->FiltersMap.insert(std::pair<std::string, int>("GenericCut", 3));
+  this->FiltersMap.insert(std::pair<std::string, int>("Threshold", 4));
+  this->FiltersMap.insert(std::pair<std::string, int>("ExtractGrid", 5));
+  this->FiltersMap.insert(std::pair<std::string, int>("GenericGeometryFilter", 6));
+  this->FiltersMap.insert(std::pair<std::string, int>("GenericStreamTracer", 7));
+  this->FiltersMap.insert(std::pair<std::string, int>("GenericOutlineFilter", 8));
+  this->FiltersMap.insert(std::pair<std::string, int>("GenericTessellator", 9));
+}
+
 void vtkPVOpenVRHelper::BuildScalarMenu()
 {
   this->ScalarMenu->PushFrontMenuItem("exit", "Exit", this->EventCommand);
