@@ -496,8 +496,7 @@ void vtkPVOpenVRHelper::SelectScalar(std::string name)
 //----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::SelectSources(std::string name)
 {
-    vtkSMSessionProxyManager* pxm = vtkSMProxyManager::GetProxyManager()->GetActiveSessionProxyManager();
-    vtkSMSession* session = pxm->GetSession();
+  vtkSMSession* session = GetActiveSession();
 
     vtkNew<vtkSMParaViewPipelineControllerWithRendering> controller;
     if (pxm == NULL)
@@ -1244,4 +1243,12 @@ vtkSMRenderViewProxy* vtkPVOpenVRHelper::GetActiveRenderViewProxy()
   vtkSMViewProxy* smview = view->getViewProxy();
   vtkSMRenderViewProxy *rvp = vtkSMRenderViewProxy::SafeDownCast(smview);
   return rvp;
+}
+
+//----------------------------------------------------------------------------
+vtkSMSession* vtkPVOpenVRHelper::GetActiveSession()
+{
+  vtkSMSessionProxyManager* pxm = vtkSMProxyManager::GetProxyManager()->GetActiveSessionProxyManager();
+  vtkSMSession* session = pxm->GetSession();
+  return session;
 }
