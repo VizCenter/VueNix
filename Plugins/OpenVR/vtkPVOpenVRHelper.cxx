@@ -497,7 +497,7 @@ void vtkPVOpenVRHelper::SelectSources(std::string name)
     vtkSMSessionProxyManager* pxm = vtkSMProxyManager::GetProxyManager()->GetActiveSessionProxyManager();
     vtkSMSession* session = pxm->GetSession();
 
-    vtkNew<vtkSMParaViewPipelineController> controller;
+    vtkNew<vtkSMParaViewPipelineControllerWithRendering> controller;
     if (pxm == NULL)
     {
       std::cout << "Proxy Manager not found"<<std::endl;
@@ -532,24 +532,19 @@ void vtkPVOpenVRHelper::SelectSources(std::string name)
           vtkSMSourceProxy::SafeDownCast(pxm->NewProxy("sources", name.c_str())));
         //vtkSMPropertyHelper(sphereSource, "Radius").Set(10);
       controller->PreInitializeProxy(source);
-
- //      pxm->RegisterProxy("sources",name.c_str(),source);
-//        vtkSmartPointer<vtkSMProxy> view;
-//        vtkSmartPointer<vtkSMProxy> repr;
-
 //        view.TakeReference(pxm->GeRenderView->NewProxy("views", "RenderView"));
 
         source->UpdateVTKObjects();
-        //source->UpdatePipelineInformation();
+        source->UpdatePipelineInformation();
 
         controller->PostInitializeProxy(source);
         controller->RegisterPipelineProxy(source);
         // Create view
             vtkSmartPointer<vtkSMProxy> view;
             view.TakeReference(this->SMView);
-//            controller->PreInitializeProxy(view);
-//            controller->PostInitializeProxy(view);
-//            controller->RegisterViewProxy(view);
+            controller->PreInitializeProxy(view);
+            controller->PostInitializeProxy(view);
+            controller->RegisterViewProxy(view);
 
 #if 0
             vtkSMProxy* repr = this->SMView->FindRepresentation(source,1 );
@@ -578,64 +573,96 @@ void vtkPVOpenVRHelper::SelectSources(std::string name)
        // controller->Show(source,1,this->SMView);
 
          //   source->UpdatePipeline();
-        //this->SendToOpenVR(this->SMView);
-
-        //this->UpdateProps();
+        // this->SendToOpenVR(this->SMView);
+        this->UpdateProps();
         this->SMView->StillRender();
 }
 
 //----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::SelectFilters(std::string name)
 {
-  std::istringstream is(name);
-  int target;
-  is >> target;
+  vtkSMSessionProxyManager* pxm = vtkSMProxyManager::GetProxyManager()->GetActiveSessionProxyManager();
+  vtkSMSession* session = pxm->GetSession();
 
-  int count = 0;
-  std::string tname;
-  int tassoc = -1;
-  for (auto i : this->ScalarMap)
+  vtkNew<vtkSMParaViewPipelineControllerWithRendering> controller;
+  if (pxm == NULL)
   {
-    if (count == target)
-    {
-      tname = i.first;
-      tassoc = i.second;
-      break;
-    }
-    count++;
+    std::cout << "Proxy Manager not found"<<std::endl;
+    return; // Nothing to look into...
+  }
+  if (!controller->InitializeSession(session))
+  {
+    cerr << "Failed to initialize ParaView session." << endl;
+    return;
   }
 
-  vtkSMPropertyHelper helper(this->SMView, "Representations");
-  for (unsigned int i = 0; i < helper.GetNumberOfElements(); i++)
+  if (controller->FindTimeKeeper(session) == NULL)
   {
-    vtkSMPVRepresentationProxy* repr =
-      vtkSMPVRepresentationProxy::SafeDownCast(helper.GetAsProxy(i));
-    vtkSMProperty* prop = repr ? repr->GetProperty("ColorArrayName") : nullptr;
-    if (prop)
-    {
-      vtkSMRepresentedArrayListDomain* scalars = vtkSMRepresentedArrayListDomain::SafeDownCast(
-        prop->FindDomain("vtkSMRepresentedArrayListDomain"));
-      int numsc = scalars->GetNumberOfStrings();
-      bool found = false;
-      for (int i = 0; i < numsc && !found; ++i)
-      {
-        std::string sname = scalars->GetString(i);
-        int assoc = scalars->GetFieldAssociation(i);
-        if (assoc == tassoc && sname == tname)
-        {
-          // vtkSMPVRepresentationProxy - has method SetColorArrayName
-          repr->SetScalarColoring(tname.c_str(), tassoc);
-          found = true;
-        }
-      }
-      if (!found)
-      {
-        // solid color
-        repr->SetScalarColoring(nullptr, tassoc);
-      }
-    }
+    cerr << "Failed at line " << __LINE__ << endl;
+    return;
   }
-  this->SMView->StillRender();
+
+  if (controller->FindAnimationScene(session) == NULL)
+  {
+    cerr << "Failed at line " << __LINE__ << endl;
+    return;
+  }
+
+  if (controller->GetTimeAnimationTrack(controller->GetAnimationScene(session)) == NULL)
+  {
+    cerr << "Failed at line " << __LINE__ << endl;
+    return;
+  }
+
+    vtkSmartPointer<vtkSMProxy> source;
+      source.TakeReference(
+        vtkSMSourceProxy::SafeDownCast(pxm->NewProxy("filters", name.c_str())));
+      //vtkSMPropertyHelper(sphereSource, "Radius").Set(10);
+    controller->PreInitializeProxy(source);
+//        view.TakeReference(pxm->GeRenderView->NewProxy("views", "RenderView"));
+
+      source->UpdateVTKObjects();
+      //source->UpdatePipelineInformation();
+
+      controller->PostInitializeProxy(source);
+      controller->RegisterPipelineProxy(source);
+      // Create view
+          vtkSmartPointer<vtkSMProxy> view;
+          view.TakeReference(this->SMView);
+          controller->PreInitializeProxy(view);
+          controller->PostInitializeProxy(view);
+          controller->RegisterViewProxy(view);
+
+#if 0
+          vtkSMProxy* repr = this->SMView->FindRepresentation(source,1 );
+          if(repr== NULL){
+                      cerr << "Failed at line " << __LINE__ << endl;
+                  return;
+                  }
+#else
+      vtkSmartPointer<vtkSMProxy> repr;
+      repr.TakeReference(
+        vtkSMViewProxy::SafeDownCast(view)->CreateDefaultRepresentation(source, 0));
+      if(repr== NULL){
+          cerr << "Failed at line " << __LINE__ << endl;
+      return;
+      }
+      controller->PreInitializeProxy(repr);
+      vtkSMPropertyHelper(repr, "Input").Set(source);
+      controller->PostInitializeProxy(repr);
+      controller->RegisterRepresentationProxy(repr);
+
+      vtkSMPropertyHelper(view, "Representations").Add(repr);
+#endif
+      //this->SMView->FindRepresentation(source,1)
+      vtkSMPropertyHelper(repr, "Visibility").Set(1);
+      //view->UpdateVTKObjects();
+     // controller->Show(source,1,this->SMView);
+
+       //   source->UpdatePipeline();
+      // this->SendToOpenVR(this->SMView);
+      this->UpdateProps();
+      this->SMView->StillRender();
 }
 
 
