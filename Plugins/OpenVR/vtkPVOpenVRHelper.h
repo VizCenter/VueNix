@@ -40,6 +40,7 @@ class vtkPropCollection;
 class vtkPVRenderView;
 class vtkSMProxy;
 class vtkSMViewProxy;
+class vtkSMRenderViewProxy;
 
 class vtkPVOpenVRHelper : public vtkObject
 {
@@ -134,6 +135,7 @@ protected:
   vtkPropCollection* AddedProps;
   vtkTimeStamp PropUpdateTime;
   void reload();
+  vtkSMRenderViewProxy* GetActiveRenderViewProxy();
 
 private:
   vtkPVOpenVRHelper(const vtkPVOpenVRHelper&) = delete;

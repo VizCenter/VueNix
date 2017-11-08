@@ -60,7 +60,7 @@
 #include "vtkSMPropertyHelper.h"
 #include "vtkSMRepresentedArrayListDomain.h"
 #include "vtkSMViewProxy.h"
-
+#include "vtkSMRenderViewProxy.h"
 #include "vtkSMSessionProxyManager.h"
 #include "vtkSMProxyManager.h"
 #include "vtkSMProxy.h"
@@ -72,6 +72,8 @@
 #include "vtkSMParaViewPipelineController.h"
 #include "vtkSMParaViewPipelineControllerWithRendering.h"
 #include "vtkNew.h"
+#include "pqView.h"
+#include "pqActiveObjects.h"
 #include <sstream>
 #include <string>
 #include <set>
@@ -1232,4 +1234,14 @@ void vtkPVOpenVRHelper::reload()
   pqView* view = pqActiveObjects::instance().activeView();
   vtkSMViewProxy* smview = view->getViewProxy();
   this->SendToOpenVR(smview);
+}
+
+//----------------------------------------------------------------------------
+//TODO : This needs to go into its own ParaViewTools file
+vtkSMRenderViewProxy* vtkPVOpenVRHelper::GetActiveRenderViewProxy()
+{
+  pqView* view = pqActiveObjects::instance().activeView();
+  vtkSMViewProxy* smview = view->getViewProxy();
+  vtkSMRenderViewProxy *rvp = vtkSMRenderViewProxy::SafeDownCast(smview);
+  return rvp;
 }
