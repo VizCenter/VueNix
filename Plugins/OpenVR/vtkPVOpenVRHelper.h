@@ -133,6 +133,7 @@ protected:
   vtkOpenVRRenderWindow* RenderWindow;
   vtkPropCollection* AddedProps;
   vtkTimeStamp PropUpdateTime;
+  void reload();
 
 private:
   vtkPVOpenVRHelper(const vtkPVOpenVRHelper&) = delete;

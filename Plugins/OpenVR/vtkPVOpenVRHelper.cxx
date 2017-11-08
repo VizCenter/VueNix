@@ -1198,3 +1198,11 @@ void vtkPVOpenVRHelper::PrintSelf(ostream& os, vtkIndent indent)
 {
   this->Superclass::PrintSelf(os, indent);
 }
+
+//----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::reload()
+{
+  pqView* view = pqActiveObjects::instance().activeView();
+  vtkSMViewProxy* smview = view->getViewProxy();
+  this->SendToOpenVR(smview);
+}
