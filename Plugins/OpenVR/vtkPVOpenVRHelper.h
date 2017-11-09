@@ -128,6 +128,11 @@ protected:
                        unsigned long event,
                        void* clientdata,
                        void* calldata);
+  void HandlePipelineEvent(vtkOpenVRPipelineWidget* pipeline,
+                       vtkObject* object,
+                       unsigned long event,
+                       void* clientdata,
+                       void* calldata);
   void HandleInteractorEvent(vtkOpenVRRenderWindowInteractor* iren,
                              vtkObject* object,
                              unsigned long event,

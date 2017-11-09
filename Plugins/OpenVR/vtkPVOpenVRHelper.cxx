@@ -541,6 +541,10 @@ void vtkPVOpenVRHelper::HandleMenuEvent(vtkOpenVRMenuWidget* menu,
     {
       this->ToggleNavigationPanel();
     }
+    if (name == "pipeline")
+    {
+        //this->ToggleNavigationPanel();
+    }
     if (name == "selectscalar")
     {
       menu->ShowSubMenu(this->ScalarMenu.Get());
@@ -614,6 +618,28 @@ void vtkPVOpenVRHelper::HandleMenuEvent(vtkOpenVRMenuWidget* menu,
   {
     this->Style->GetMenu()->On();
   }
+}
+
+//----------------------------------------------------------------------------
+void vtkPVOpenVRHelper::HandlePipelineEvent(vtkOpenVRPipelineWidget* pipeline,
+                                        vtkObject*,
+                                        unsigned long eventID,
+                                        void*,
+                                        void* calldata)
+{
+  // handle pipeline events
+  if(pipeline == this->Pipeline.Get() && eventID == vtkWidgetEvent::Select){
+    std::cout << "Select event? Dont know what it does" <<std::endl;
+  }
+  if(pipeline == this->Pipeline.Get() && eventID == vtkWidgetEvent::Select3D){
+    std::string name = static_cast<const char*>(calldata);
+    if (name != "exit")
+    {
+      std::cout << "Hiding :" << name <<std::endl;
+    }
+    return;
+  }
+  std::cout<<"Pipeline Event Handler"<<std::endl;
 }
 
 //----------------------------------------------------------------------------
@@ -699,6 +725,14 @@ void vtkPVOpenVRHelper::EventCallback(vtkObject* caller,
   if (menu)
   {
     self->HandleMenuEvent(menu, caller, eventID, clientdata, calldata);
+    return;
+  }
+
+  vtkOpenVRPipelineWidget* pipeline = vtkOpenVRPipelineWidget::SafeDownCast(caller);
+  if(pipeline)
+  {
+    std::cout << "Inside Pipeline Event" << std::endl;
+    self->HandlePipelineEvent(pipeline, caller, eventID, clientdata, calldata);
     return;
   }
 
