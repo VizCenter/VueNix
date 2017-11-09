@@ -350,7 +350,7 @@ void vtkPVOpenVRHelper::BuildSourcesMenu()
     this->SourcesMenu->PushFrontMenuItem("CubeSource", "Box", this->EventCommand);
     //this->SourcesMenu->PushFrontMenuItem("Axes", "Axes", this->EventCommand);
     this->SourcesMenu->PushFrontMenuItem("ArrowSource", "Arrow", this->EventCommand);
-    this->FiltersMenu->PushFrontMenuItem("VectorText", "3D Text", this->EventCommand);
+    this->SourcesMenu->PushFrontMenuItem("VectorText", "3D Text", this->EventCommand);
 }
 
 //----------------------------------------------------------------------------
