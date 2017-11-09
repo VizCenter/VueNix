@@ -46,6 +46,7 @@ IF(PARAVIEW_BUILD_QT_GUI)
     GUI_SOURCES ${OUTSRCS} ${MOC_SRCS} ${UI_SRCS} 
     pvOpenVRDockPanel.cxx 
     vtkPVOpenVRHelper.cxx
+    ParaViewTools.cpp
     )
 
   target_link_libraries (OpenVR
