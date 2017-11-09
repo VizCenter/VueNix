@@ -153,6 +153,34 @@ vtkSMSession* GetActiveSession()
   vtkSMSession* session = pxm->GetSession();
   return session;
 }
+//----------------------------------------------------------------------------
+//TODO : This needs to go into its own ParaViewTools file
+vtkSMSourceProxy* CreatePipelineProxy(vtkSMSession* session,
+                                      const char* xmlgroup,
+                                      const char* xmlname,
+                                      vtkSMProxy* input = NULL)
+{
+  vtkSMSessionProxyManager* pxm = session->GetSessionProxyManager();
+  vtkSmartPointer<vtkSMSourceProxy> proxy;
+  proxy.TakeReference(vtkSMSourceProxy::SafeDownCast(pxm->NewProxy(xmlgroup, xmlname)));
+  if (!proxy)
+  {
+    vtkGenericWarningMacro("Failed to create: " << xmlgroup << ", " << xmlname << ". Aborting !!!");
+    abort();
+  }
+
+  vtkNew<vtkSMParaViewPipelineController> controller;
+  controller->PreInitializeProxy(proxy.Get());
+  if (input != NULL)
+  {
+    vtkSMPropertyHelper(proxy, "Input").Set(input);
+  }
+  controller->PostInitializeProxy(proxy.Get());
+  proxy->UpdateVTKObjects();
+
+  controller->RegisterPipelineProxy(proxy);
+  return proxy.Get();
+}
 }
 //----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::GetScalars()
