@@ -139,6 +139,12 @@ vtkSMViewProxy* GetActiveViewProxy()
   pqView* view = pqActiveObjects::instance().activeView();
   return view->getViewProxy();
 }
+//----------------------------------------------------------------------------
+//TODO : This needs to go into its own ParaViewTools file
+vtkSMRenderViewProxy* GetActiveRenderViewProxy()
+{
+  return vtkSMRenderViewProxy::SafeDownCast(GetActiveViewProxy());
+}
 }
 //----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::GetScalars()
