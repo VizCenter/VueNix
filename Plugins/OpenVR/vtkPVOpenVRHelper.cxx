@@ -51,7 +51,8 @@
 #include "vtkTextProperty.h"
 #include "vtkVectorOperators.h"
 #include "vtkWidgetEvent.h"
-
+#include "vtkOpenVRPipelineWidget.h"
+#include "vtkOpenVRPipelineRepresentation.h"
 #include "vtkPVLODActor.h"
 #include "vtkPVRenderView.h"
 #include "vtkSMSession.h"
@@ -89,6 +90,8 @@ vtkPVOpenVRHelper::vtkPVOpenVRHelper()
   this->EventCommand = vtkCallbackCommand::New();
   this->EventCommand->SetClientData(this);
   this->EventCommand->SetCallback(vtkPVOpenVRHelper::EventCallback);
+
+  this->Pipeline->SetRepresentation(this->PipelineRepresentation.Get());
   this->ScalarMenu->SetRepresentation(this->ScalarMenuRepresentation.Get());
   this->SourcesMenu->SetRepresentation(this->SourcesMenuRepresentation.Get());
   this->FiltersMenu->SetRepresentation(this->FiltersMenuRepresentation.Get());
@@ -133,6 +136,7 @@ vtkPVDataRepresentation* FindRepresentation(vtkProp* prop, vtkView* view)
   }
   return NULL;
 }
+
 }
 //----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::GetScalars()

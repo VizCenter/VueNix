@@ -42,6 +42,8 @@ class vtkSMProxy;
 class vtkSMViewProxy;
 class vtkSMRenderViewProxy;
 class vtkSMSession;
+class vtkOpenVRPipelineWidget;
+class vtkOpenVRPipelineRepresentation;
 
 class vtkPVOpenVRHelper : public vtkObject
 {
@@ -99,6 +101,9 @@ protected:
 
   vtkOpenVRInteractorStyle* Style;
   vtkOpenVRRenderWindowInteractor* Interactor;
+
+  vtkNew<vtkOpenVRPipelineWidget> Pipeline;
+  vtkNew<vtkOpenVRPipelineRepresentation> PipelineRepresentation;
 
   std::map<std::string, int> ScalarMap;
   vtkNew<vtkOpenVRMenuWidget> ScalarMenu;
