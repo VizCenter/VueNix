@@ -426,7 +426,7 @@ void vtkPVOpenVRHelper::SelectSources(std::string name)
                                                  "sources",
                                                  name.c_str());
   source->UpdatePipeline();
-  this->Pipeline->PushFrontTreeItem(name.c_str(),name.c_str(),this->EventCommand);
+  this->Pipeline->PushFrontPipelineItem(name.c_str(),name.c_str(),this->EventCommand);
   Show(source);
   reload();
 }
