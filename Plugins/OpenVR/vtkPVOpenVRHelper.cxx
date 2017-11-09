@@ -132,6 +132,13 @@ vtkPVDataRepresentation* FindRepresentation(vtkProp* prop, vtkView* view)
   }
   return NULL;
 }
+//----------------------------------------------------------------------------
+//TODO : This needs to go into its own ParaViewTools file
+vtkSMViewProxy* GetActiveViewProxy()
+{
+  pqView* view = pqActiveObjects::instance().activeView();
+  return view->getViewProxy();
+}
 }
 //----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::GetScalars()
