@@ -1261,25 +1261,6 @@ void vtkPVOpenVRHelper::PrintSelf(ostream& os, vtkIndent indent)
 //----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::reload()
 {
-  pqView* view = pqActiveObjects::instance().activeView();
-  vtkSMViewProxy* smview = view->getViewProxy();
-  this->SendToOpenVR(smview);
-}
-
-//----------------------------------------------------------------------------
-//TODO : This needs to go into its own ParaViewTools file
-vtkSMRenderViewProxy* vtkPVOpenVRHelper::GetActiveRenderViewProxy()
-{
-  pqView* view = pqActiveObjects::instance().activeView();
-  vtkSMViewProxy* smview = view->getViewProxy();
-  vtkSMRenderViewProxy *rvp = vtkSMRenderViewProxy::SafeDownCast(smview);
-  return rvp;
-}
-
-//----------------------------------------------------------------------------
-vtkSMSession* vtkPVOpenVRHelper::GetActiveSession()
-{
-  vtkSMSessionProxyManager* pxm = vtkSMProxyManager::GetProxyManager()->GetActiveSessionProxyManager();
-  vtkSMSession* session = pxm->GetSession();
-  return session;
+  this->SMView->StillRender();
+  UpdateProps();
 }
