@@ -136,8 +136,6 @@ protected:
   vtkPropCollection* AddedProps;
   vtkTimeStamp PropUpdateTime;
   void reload();
-  vtkSMRenderViewProxy* GetActiveRenderViewProxy();
-  vtkSMSession* GetActiveSession();
 private:
   vtkPVOpenVRHelper(const vtkPVOpenVRHelper&) = delete;
   void operator=(const vtkPVOpenVRHelper&) = delete;
