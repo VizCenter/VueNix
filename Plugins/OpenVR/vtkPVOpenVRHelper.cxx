@@ -54,7 +54,7 @@
 
 #include "vtkPVLODActor.h"
 #include "vtkPVRenderView.h"
-
+#include "vtkSMSession.h"
 #include "vtkSMPVRepresentationProxy.h"
 #include "vtkSMProperty.h"
 #include "vtkSMPropertyHelper.h"
@@ -144,6 +144,14 @@ vtkSMViewProxy* GetActiveViewProxy()
 vtkSMRenderViewProxy* GetActiveRenderViewProxy()
 {
   return vtkSMRenderViewProxy::SafeDownCast(GetActiveViewProxy());
+}
+//----------------------------------------------------------------------------
+//TODO : This needs to go into its own ParaViewTools file
+vtkSMSession* GetActiveSession()
+{
+  vtkSMSessionProxyManager* pxm = vtkSMProxyManager::GetProxyManager()->GetActiveSessionProxyManager();
+  vtkSMSession* session = pxm->GetSession();
+  return session;
 }
 }
 //----------------------------------------------------------------------------
