@@ -181,6 +181,37 @@ vtkSMSourceProxy* CreatePipelineProxy(vtkSMSession* session,
   controller->RegisterPipelineProxy(proxy);
   return proxy.Get();
 }
+//----------------------------------------------------------------------------
+//TODO : This needs to go into its own ParaViewTools file
+void Show(vtkSMSourceProxy* proxy)
+{
+  vtkNew<vtkSMParaViewPipelineControllerWithRendering> controller;
+  vtkSMSession *session = GetActiveSession();
+  if (!controller->InitializeSession(session))
+  {
+    cerr << "Failed to initialize ParaView session." << endl;
+    return;
+  }
+
+  if (controller->FindTimeKeeper(session) == NULL)
+  {
+    cerr << "Failed at line " << __LINE__ << endl;
+    return;
+  }
+
+  if (controller->FindAnimationScene(session) == NULL)
+  {
+    cerr << "Failed at line " << __LINE__ << endl;
+    return;
+  }
+
+  if (controller->GetTimeAnimationTrack(controller->GetAnimationScene(session)) == NULL)
+  {
+    cerr << "Failed at line " << __LINE__ << endl;
+    return;
+  }
+  controller->Show(proxy,0,GetActiveViewProxy());
+}
 }
 //----------------------------------------------------------------------------
 void vtkPVOpenVRHelper::GetScalars()
